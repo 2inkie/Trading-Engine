@@ -6,15 +6,15 @@ use bincode::{config, Decode, Encode};
 #[derive(Serialize, Deserialize, Debug, Encode, Decode)]
 pub struct PriceBar {
     #[serde(rename = "1. open")]
-    pub open: String,
+    pub open: f64,
     #[serde(rename = "2. high")]
-    pub high: String,
+    pub high: f64,
     #[serde(rename = "3. low")]
-    pub low: String,
+    pub low: f64,
     #[serde(rename = "4. close")]
-    pub close: String,
+    pub close: f64,
     #[serde(rename = "5. volume")]
-    pub volume: String,
+    pub volume: f64,
 }
 
 #[derive(Deserialize, Debug)]
@@ -37,21 +37,9 @@ fn fetch_and_clean(symbol: &str, api_key: &str, output_path: &str) -> PyResult<(
         let response_text = reqwest::get(&url).await?.text().await?;
 
         let parsed_response: APIResponse = serde_json::from_str(&response_text)?;
-        let mut price_bars: Vec<PriceBar> = parsed_response.time_series.into_values().collect();
-
-        let cleaned_bars: Vec<_> = price_bars
-            .into_iter()
-            .filter_map(|bar| {
-                let close_price = bar.close.parse::<f64>().ok()?;
-                if close_price > 0.0 {
-                    Some(bar)
-                } else {
-                    None
-                }
-            })
-            .collect();
+        let price_bars: Vec<PriceBar> = parsed_response.time_series.into_values().collect();
         let config = config::standard();
-        let encoded: Vec<u8> = bincode::encode_to_vec(&cleaned_bars, config)?;
+        let encoded: Vec<u8> = bincode::encode_to_vec(&price_bars, config)?;
         fs::write(output_path, encoded)?;
 
         Ok(()) // Return success
