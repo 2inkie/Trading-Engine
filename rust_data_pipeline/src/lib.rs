@@ -29,6 +29,7 @@ where
 
 #[derive(Serialize, Deserialize, Debug, Encode, Decode)]
 pub struct PriceBar {
+    pub date: String,
     #[serde(rename = "1. open", deserialize_with = "deserialize_string_as_f64")]
     pub open: f64,
     #[serde(rename = "2. high", deserialize_with = "deserialize_string_as_f64")]
@@ -61,7 +62,17 @@ fn fetch_and_clean(symbol: &str, api_key: &str, output_path: &str) -> PyResult<(
         let response_text = reqwest::get(&url).await?.text().await?;
 
         let parsed_response: APIResponse = serde_json::from_str(&response_text)?;
-        let price_bars: Vec<PriceBar> = parsed_response.time_series.into_values().collect();
+        let price_bars: Vec<PriceBar> = parsed_response.time_series
+            .into_iter()
+            .map(|(date, bar)| PriceBar {
+                date,
+                open: bar.open,
+                high: bar.high,
+                low: bar.low,
+                close: bar.close,
+                volume: bar.volume,
+            })
+            .collect();
         let config = config::standard();
         let encoded: Vec<u8> = bincode::encode_to_vec(&price_bars, config)?;
         fs::write(output_path, encoded)?;
