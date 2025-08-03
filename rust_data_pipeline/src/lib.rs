@@ -1,19 +1,43 @@
 use pyo3::prelude::*;
-use serde::{Deserialize, Serialize};
+use serde::{de, Deserialize, Serialize, de::Visitor, de::Deserializer};
 use std::fs;
 use bincode::{config, Decode, Encode};
 
+fn deserialize_string_as_f64<'de, D>(deserializer: D) -> Result<f64, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    // A little helper struct to tell Serde how to visit the strings coming from AlphaVantage
+    struct StringToF64Visitor;
+
+    impl<'de> Visitor<'de> for StringToF64Visitor {
+        type Value = f64;
+
+        fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+            formatter.write_str("a string that can be parsed as an f64")
+        }
+
+        fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+        where
+            E: de::Error,
+        {
+            v.parse::<f64>().map_err(de::Error::custom)
+        }
+    }
+    deserializer.deserialize_str(StringToF64Visitor)
+}
+
 #[derive(Serialize, Deserialize, Debug, Encode, Decode)]
 pub struct PriceBar {
-    #[serde(rename = "1. open")]
+    #[serde(rename = "1. open", deserialize_with = "deserialize_string_as_f64")]
     pub open: f64,
-    #[serde(rename = "2. high")]
+    #[serde(rename = "2. high", deserialize_with = "deserialize_string_as_f64")]
     pub high: f64,
-    #[serde(rename = "3. low")]
+    #[serde(rename = "3. low", deserialize_with = "deserialize_string_as_f64")]
     pub low: f64,
-    #[serde(rename = "4. close")]
+    #[serde(rename = "4. close", deserialize_with = "deserialize_string_as_f64")]
     pub close: f64,
-    #[serde(rename = "5. volume")]
+    #[serde(rename = "5. volume", deserialize_with = "deserialize_string_as_f64")]
     pub volume: f64,
 }
 
