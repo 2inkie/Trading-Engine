@@ -1,4 +1,4 @@
-// SignalPacket.h
+// include/core/SignalPacket.h
 
 #pragma once
 #include <string>
