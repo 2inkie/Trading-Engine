@@ -1,8 +1,6 @@
 // include/interfaces/ISignalSource.h
 
 #pragma once
-#include "core/SignalPacket.h"
-
 #include <map>
 #include <string>
 
@@ -22,5 +20,5 @@ public:
      * @param latest_bar The most recent market data to analyze.
      * @return A map defining the ideal portfolio (asset symbol -> target weight).
      */
-    virtual std::map<std::string, double> get_target_portfolio(const SignalPacket& signal) = 0;
+    virtual std::map<std::string, double> get_target_portfolio() = 0;
 };
