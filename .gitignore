@@ -1,0 +1,5 @@
+#CMake and build files
+/build
+
+#VS Code settings
+/.vscode
