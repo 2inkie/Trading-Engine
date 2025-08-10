@@ -1,6 +1,7 @@
 // include/interfaces/IDataProvider.h
 
 #pragma once
+#include "core/DataBar.h"
 #include <optional>
 #include <map>
 #include <string>
@@ -19,5 +20,5 @@ public:
     virtual ~IDataProvider() = default;
 
     // The core function of the interface.
-    virtual std::map<std::string, double> get_target_portfolio() = 0;
+    virtual std::optional<DataBar> get_next_bar() = 0;
 };

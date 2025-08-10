@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 
 # Set the project name and C++ standard
 project(TradingEngine VERSION 1.0)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(ZeroMQ_DIR "C:/dev/vcpkg/installed/x64-windows/share/zeromq")
