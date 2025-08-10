@@ -39,16 +39,18 @@ std::optional<DataBar> BinFileReader::get_next_bar() {
     }
 
     std::string symbol_str(record.symbol);
-    auto timestamp = std::chrono::system_clock::time_point{} + 
-                    std::chrono::nanoseconds(record.timestamp_epoch_ns);
+
+    auto timestamp_ns = std::chrono::system_clock::time_point{} + 
+                        std::chrono::nanoseconds(record.timestamp_epoch_ns);
+    auto timestamp_for_databar = std::chrono::time_point_cast<std::chrono::system_clock::duration>(timestamp_ns);
 
     return DataBar{
-        .symbol = symbol_str,
-        .timestamp = timestamp,
-        .open = record.open,
-        .high = record.high,
-        .low = record.low,
-        .close = record.close,
-        .volume = record.volume
+        symbol_str,
+        timestamp_for_databar,
+        record.open,
+        record.high,
+        record.low,
+        record.close,
+        record.volume
     };
 }
