@@ -31,5 +31,6 @@ public:
      */
     virtual std::map<std::string, double> validate_target(
         const Portfolio& current_portfolio,
+        double peak_portfolio_value,
         const std::map<std::string, double>& target_portfolio) = 0;
 };

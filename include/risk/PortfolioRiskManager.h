@@ -7,15 +7,21 @@
 class PortfolioRiskManager : public IRiskManager {
     public:
         /**
-         * @brief Validates a target portfolio against risk rules.
-         * This function takes the current portfolio and the proposed target, and
-         * returns a final, risk-approved target portfolio. This allows the risk
-         * manager to scale down positions rather than just rejecting a plan outright.
-         * @param current_portfolio The current state of the portfolio.
-         * @param target_portfolio The proposed target portfolio from the signal source.
-         * @return A risk-approved target portfolio.
+         * @brief Constructs the risk manager with specific risk parameters.
+         * @param max_pos_weight The max allocation to any single asset (e.g., 0.25 for 25%).
+         * @param max_leverage The max total portfolio weight (e.g., 1.0 for no leverage).
+         * @param max_drawdown The max allowed loss from the peak portfolio value (e.g., 0.15 for 15%).
          */
+
+        PortfolioRiskManager(double max_pos_weight, double max_leverage, double max_drawdown);
         std::map<std::string, double> validate_target(
             const Portfolio& current_portfolio,
-            const std::map<std::string, double>& target_portfolio) override;
+            double peak_portfolio_value,
+            const std::map<std::string, double>& target_portfolio
+        ) override;
+
+    private:
+        double m_max_pos_weight;
+        double m_max_leverage;
+        double m_max_drawdown;
 };
