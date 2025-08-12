@@ -1,15 +1,10 @@
 // include/interfaces/ISignalSource.h
 
 #pragma once
+
 #include <map>
 #include <string>
-
-// Forward-declare to avoid including the full JSON header in an interface file
-namespace nlohmann {
-    template<typename, typename, typename, bool, typename, typename>
-    class basic_json;
-    using json = basic_json<std::map, std::vector, std::string, bool, std::int64_t, std::uint64_t>;
-}
+#include <nlohmann/json.hpp>
 
 class ISignalSource {
 public:
