@@ -5,11 +5,12 @@
 
 enum class OrderSide { Buy, Sell };
 
-struct TradeOrder {
-    std::string symbol;      // Asset identifier (eg AAPL)
-    double quantity;         // Number of shares/contracts to trade
-    OrderSide side;          // Buy or Sell
+class TradeOrder {
+    public:
+        std::string symbol;
+        long long quantity;
+        OrderSide side;
 
-    TradeOrder(const std::string& sym, double qty, OrderSide side)
-        : symbol(sym), quantity(qty), side(side) {}
+        TradeOrder(const std::string& sym, long long qty, OrderSide s)
+            : symbol(sym), quantity(qty), side(s) {}
 };
