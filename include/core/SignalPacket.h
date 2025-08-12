@@ -12,6 +12,8 @@ struct SignalPacket {
     double target_weight;    // Desired allocation of the portfolio for this asset
     double confidence;       // Confidence level of the signal (0.0 to 1.0)
 
+    SignalPacket() = default;
+
     SignalPacket(const std::string& sym, SignalType type, double weight, double conf)
         : symbol(sym), signal_type(type), target_weight(weight), confidence(conf) {}
 };

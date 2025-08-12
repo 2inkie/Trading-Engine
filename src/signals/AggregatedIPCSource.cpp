@@ -1,7 +1,7 @@
 // src/signals/AggregatedIPCSource.cpp
 
-#include "signals/AggregatedIPCSource.h"
 #include "core/SignalPacket.h"
+#include "signals/AggregatedIPCSource.h"
 #include <numeric>
 #include <iostream>
 #include <cmath>

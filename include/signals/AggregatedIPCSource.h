@@ -3,6 +3,7 @@
 #pragma once
 
 #include "interfaces/ISignalSource.h"
+#include "core/SignalPacket.h"
 #include <zmq.hpp>
 #include <nlohmann/json.hpp>
 #include <chrono>
