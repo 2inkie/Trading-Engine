@@ -1,19 +1,19 @@
 cmake_minimum_required(VERSION 3.20)
 project(TradingEngine VERSION 1.0 LANGUAGES CXX)
 
-# Use C++20
+# --- Project Settings ---
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Dependencies
+# --- Dependency Management ---
 find_package(cppzmq CONFIG REQUIRED)
 find_package(ZeroMQ CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
 
-# --- Detect cppzmq target name ---
+# --- Robust Target Detection ---
 if(TARGET cppzmq::cppzmq)
     set(CPPZMQ_TARGET cppzmq::cppzmq)
 elseif(TARGET cppzmq)
@@ -22,7 +22,6 @@ else()
     message(FATAL_ERROR "cppzmq package found, but no known target available.")
 endif()
 
-# --- Detect ZeroMQ target name ---
 if(TARGET ZeroMQ::ZeroMQ)
     set(ZMQ_TARGET ZeroMQ::ZeroMQ)
 elseif(TARGET libzmq)
@@ -33,13 +32,17 @@ else()
     message(FATAL_ERROR "ZeroMQ package found, but no known target available.")
 endif()
 
-# --- Add source files ---
-add_executable(engine
-    src/main.cpp
-    # Add other source files here
-)
 
-# --- Link dependencies ---
+# --- Executable Definition ---
+add_executable(engine src/main.cpp)
+
+
+# --- Source File Management ---
+file(GLOB_RECURSE ENGINE_SOURCES "src/*.cpp")
+target_sources(engine PRIVATE ${ENGINE_SOURCES})
+
+
+# --- Linking and Include Directories ---
 target_link_libraries(engine
     PUBLIC
         ${CPPZMQ_TARGET}
@@ -48,13 +51,13 @@ target_link_libraries(engine
         unofficial::sqlite3::sqlite3
 )
 
-# --- Include dirs ---
 target_include_directories(engine
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# --- Optional warnings ---
+
+# --- Compiler Warnings ---
 if(MSVC)
     target_compile_options(engine PRIVATE /W4 /permissive-)
 else()
