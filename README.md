@@ -20,6 +20,7 @@ The engine is built on a set of decoupled components, each with a single respons
 ## File Structure
 The project uses a separated structure for header and source files, making it easy to navigate and maintain.
 
+```
 trading_engine/
 ├── build/
 ├── config/
@@ -61,6 +62,7 @@ trading_engine/
 │   └── main.cpp
 ├── tests/
 └── CMakeLists.txt
+```
 
 ## How to Build
 This project uses CMake and requires a C++ package manager (like vcpkg) for its dependencies (ZeroMQ, nlohmann-json, SQLite).
