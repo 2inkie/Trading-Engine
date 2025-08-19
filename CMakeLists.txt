@@ -9,9 +9,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # --- Dependency Management ---
 find_package(cppzmq CONFIG REQUIRED)
-find_package(ZeroMQ CONFIG REQUIRED)
+find_package(ZeroMQ REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
-find_package(unofficial-sqlite3 CONFIG REQUIRED)
+find_package(SQLite3 REQUIRED)
 
 # --- Robust Target Detection ---
 if(TARGET cppzmq::cppzmq)
@@ -46,9 +46,9 @@ target_sources(engine PRIVATE ${ENGINE_SOURCES})
 target_link_libraries(engine
     PUBLIC
         ${CPPZMQ_TARGET}
-        ${ZMQ_TARGET}
+        ${ZeroMQ_LIBRARIES}
+        ${SQLite3_LIBRARIES}
         nlohmann_json::nlohmann_json
-        unofficial::sqlite3::sqlite3
 )
 
 target_include_directories(engine
