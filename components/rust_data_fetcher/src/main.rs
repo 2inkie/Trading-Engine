@@ -48,6 +48,7 @@ where
 
 #[derive(Serialize, Deserialize, Debug, Encode, Decode)]
 pub struct PriceBar {
+    #[serde(default)]
     pub date: String,
     #[serde(rename = "1. open", deserialize_with = "deserialize_string_as_f64")]
     pub open: f64,

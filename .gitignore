@@ -1,8 +1,11 @@
-#CMake and build files
+#C Make and build files
 /components/engine/build
 
-#VS Code settings
+# VS Code settings
 /.vscode
 
-#Rust build files
+#R ust build files
 components/rust_data_fetcher/target
+
+# API keys and sensitive data
+config/api.json
