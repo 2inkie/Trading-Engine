@@ -1,0 +1,6 @@
+{
+    "api": {
+        "name": "AlphaVantage",
+        "key": "api_key_here"
+    }
+}
