@@ -1,0 +1,24 @@
+{
+    "assets": [
+        {
+            "symbol": "AAPL",
+            "name": "Apple Inc."
+        },
+        {
+            "symbol": "NVDA",
+            "name": "NVIDIA Corporation"
+        },
+        {
+            "symbol": "TSLA",
+            "name": "Tesla Inc."
+        },
+        {
+            "symbol": "AMZN",
+            "name": "Amazon.com Inc."
+        },
+        {
+            "symbol": "GOOGL",
+            "name": "Alphabet Inc."
+        }
+    ]
+}
