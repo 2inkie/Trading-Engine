@@ -4,7 +4,7 @@ use clap::Parser;
 use serde::{de, Deserialize, Deserializer, Serialize};
 use std::fs;
 use bincode::{config, Decode, Encode};
-use serde::de::{Visitor, Error};
+use serde::de::{Visitor};
 
 // --- Command-Line Argument Parsing ---
 #[derive(Parser, Debug)]

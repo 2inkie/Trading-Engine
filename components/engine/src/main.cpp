@@ -15,7 +15,7 @@ int main() {
     // --- 1. Configuration ---
     // This section would is be loaded from a config file (eg JSON)
     const double initial_cash = 100000.0;
-    const std::string data_file_path = "data/AAPL_data.bin";
+    const std::string data_file_path = "../../data/AAPL_data.bin";
 
     // IPC configuration for Python models
     const std::vector<std::string> model_endpoints = {"tcp://localhost:5555", "tcp://localhost:5556"};

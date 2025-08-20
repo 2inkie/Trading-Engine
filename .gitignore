@@ -1,8 +1,8 @@
 #CMake and build files
-/build
+/components/engine/build
 
 #VS Code settings
 /.vscode
 
 #Rust build files
-/rust_data_fetcher/target
+components/rust_data_fetcher/target
