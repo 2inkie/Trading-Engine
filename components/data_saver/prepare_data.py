@@ -1,4 +1,3 @@
-import os
 import json
 import subprocess
 from pathlib import Path
@@ -14,10 +13,10 @@ def load_json(path):
         raise ValueError(f"Invalid JSON in {path}: {e}")
 
 # Paths
-API_CONFIG_PATH = Path('../../config/api.json')
-ASSET_CONFIG_PATH = Path('../../config/asset.json')
-OUTPUT_CONFIG_PATH = Path('../../config/output_data_location.json')
-RUST_EXECUTABLE_PATH = Path('../rust_data_fetcher/target/release/data_fetcher')
+API_CONFIG_PATH = Path('./config/api.json')
+ASSET_CONFIG_PATH = Path('./config/asset.json')
+OUTPUT_CONFIG_PATH = Path('./config/output_data_location.json')
+RUST_EXECUTABLE_PATH = Path('components/rust_data_fetcher/target/release/data_fetcher')
 
 # Load configuration
 API_KEY = load_json(API_CONFIG_PATH)['api']['key']
