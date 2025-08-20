@@ -64,7 +64,7 @@ pub struct PriceBar {
 
 #[derive(Deserialize, Debug)]
 struct APIResponse {
-    #[serde(rename = "Time Series (Daily)")]
+    #[serde(rename = "Time Series (5min)")]
     time_series: std::collections::HashMap<String, PriceBar>,
 }
 
@@ -77,7 +77,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // 2. Fetch data from the API
     let url = format!(
-        "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&apikey={}",
+        "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={}&interval=5min&apikey={}",
         args.symbol, args.api_key
     );
 

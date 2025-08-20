@@ -4,8 +4,8 @@
 # VS Code settings
 /.vscode
 
-#R ust build files
-components/rust_data_fetcher/target
+# Rust build files
+/components/rust_data_fetcher/target
 
 # API keys and sensitive data
-config/api.json
+/config/api.json
